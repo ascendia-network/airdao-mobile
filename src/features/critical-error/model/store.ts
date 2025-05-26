@@ -1,15 +1,16 @@
 import { create } from 'zustand';
 
-interface GlobalErrorState {
-  error: { title: string; message: string } | null;
+interface ErrorState {
+  error: {
+    title: string;
+    message: string;
+  } | null;
   setError: (error: { title: string; message: string }) => void;
   clearError: () => void;
 }
 
-const useGlobalErrorStore = create<GlobalErrorState>((set) => ({
+export const useErrorStore = create<ErrorState>((set) => ({
   error: null,
   setError: (error) => set({ error }),
   clearError: () => set({ error: null })
 }));
-
-export { useGlobalErrorStore };
