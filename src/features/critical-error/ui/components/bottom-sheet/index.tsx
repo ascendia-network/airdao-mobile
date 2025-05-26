@@ -9,7 +9,6 @@ import { AlertModalTemplate } from '@components/templates';
 import { useForwardedRef } from '@hooks';
 import { delay } from '@utils';
 import { styles } from './styles';
-
 interface CriticalErrorProps {
   visible?: boolean;
   title: string;
@@ -20,8 +19,7 @@ interface CriticalErrorProps {
 export const CriticalErrorBottomSheet = forwardRef<
   BottomSheetRef,
   BottomSheetProps & CriticalErrorProps
->((props, ref) => {
-  const { visible, title, message, onClose, ...restProps } = props;
+>(({ visible, title, message, onClose, ...restProps }, ref) => {
   const localRef: ForwardedRef<BottomSheetRef> = useForwardedRef(ref);
   const { t } = useTranslation();
 
@@ -47,7 +45,7 @@ export const CriticalErrorBottomSheet = forwardRef<
       containerStyle={styles.bottomSheet}
       swiperIconVisible={false}
       swipingEnabled={false}
-      height={'100%'}
+      height="100%"
       {...restProps}
     >
       <AlertModalTemplate

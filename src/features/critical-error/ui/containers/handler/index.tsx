@@ -1,13 +1,13 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { FC, useCallback, useEffect, useRef } from 'react';
 import { BackHandler } from 'react-native';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import { BottomSheetRef } from '@components/composite';
+import { useErrorStore } from '@entities/global-error/model/store';
+import { ANIMATION_TIMINGS } from '@features/critical-error/constants';
 import { delay } from '@utils';
-import { ANIMATION_TIMINGS } from '../../../constants';
-import { useErrorStore } from '../../../model/store';
 import { CriticalErrorBottomSheet } from '../../components/bottom-sheet';
 
-export const CriticalErrorHandler: React.FC = () => {
+export const CriticalErrorHandler: FC = () => {
   const localRef = useRef<BottomSheetRef>(null);
   const isClosingRef = useRef(false);
   const isMountedRef = useRef(true);

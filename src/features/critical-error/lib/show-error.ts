@@ -1,4 +1,4 @@
-import { useErrorStore } from '../model/store';
+import { useErrorStore } from '@entities/global-error/model/store';
 
 export function showCriticalError({
   title,
