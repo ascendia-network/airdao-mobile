@@ -1,16 +1,13 @@
 import { ethers } from 'ethers';
-import { useRodeoTokensStore } from '@entities/amb-rodeo-tokens/model';
+import Config from '@constants/config';
 import { TOKEN_ADDRESSES } from '@features/swap/entities';
 import { SwapToken } from '@features/swap/types';
 import { environment } from '@utils/environment';
-import { transformTokensObject } from './transform-tokens-object';
 
 export const addresses = TOKEN_ADDRESSES[environment];
 
 export function isNativeWrapped(path: string[]) {
-  const { tokens } = useRodeoTokensStore.getState();
-
-  const wrappedPath = transformTokensObject(tokens).find(
+  const wrappedPath = Config.SWAP_TOKENS.find(
     (token: SwapToken) => token.symbol === 'SAMB'
   )?.address;
 
@@ -18,13 +15,11 @@ export function isNativeWrapped(path: string[]) {
 }
 
 export function wrapNativeAddress(path: string[]): [string, string] {
-  const { tokens } = useRodeoTokensStore.getState();
   const nativeAddress = ethers.constants.AddressZero;
 
   const replacementAddress =
-    transformTokensObject(tokens).find(
-      (token: SwapToken) => token.symbol === 'SAMB'
-    )?.address ?? '';
+    Config.SWAP_TOKENS.find((token: SwapToken) => token.symbol === 'SAMB')
+      ?.address ?? '';
 
   return path.map((token) =>
     token === nativeAddress ? replacementAddress : token

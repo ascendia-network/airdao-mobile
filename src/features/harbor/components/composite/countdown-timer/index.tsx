@@ -26,20 +26,26 @@ export const CountdownTimer = ({ timestamp, refetch }: CountdownTimerProps) => {
     const calculateTimeLeft = () => {
       const now = moment();
       const target = moment(timestamp);
-      const duration = moment.duration(target.diff(now));
+      const diff = target.diff(now);
 
-      const newTimeLeft = {
-        days: Math.max(0, duration.days()),
-        hours: Math.max(0, duration.hours()),
-        minutes: Math.max(0, duration.minutes()),
-        seconds: Math.max(0, duration.seconds())
-      };
-
-      if (target.isBefore(moment())) {
+      if (diff <= 0) {
         refetch();
+        return;
       }
 
-      // Only update state if the time left has changed
+      const duration = moment.duration(diff);
+      const days = Math.floor(duration.asDays());
+      const hours = duration.hours();
+      const minutes = duration.minutes();
+      const seconds = duration.seconds();
+
+      const newTimeLeft = {
+        days,
+        hours,
+        minutes,
+        seconds
+      };
+
       if (JSON.stringify(newTimeLeft) !== JSON.stringify(timeLeft)) {
         setTimeLeft(newTimeLeft);
       }

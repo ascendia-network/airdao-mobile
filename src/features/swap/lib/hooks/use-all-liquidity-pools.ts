@@ -22,6 +22,11 @@ export function useAllLiquidityPools() {
       const totalPairs = Number(pairCount);
 
       const batchSize = 50;
+      let allPairs: Array<{
+        pairAddress: string;
+        token0: string;
+        token1: string;
+      }> = [];
 
       for (
         let batchStart = 0;
@@ -76,19 +81,21 @@ export function useAllLiquidityPools() {
             token1: string;
           } => result !== null
         );
+
+        allPairs = [...allPairs, ...validResults];
         results.push(...validResults);
 
-        setPairs(validResults);
+        setPairs(allPairs);
       }
 
       if (__DEV__) {
         Alert.alert(
           'Successfully loaded liquidity pools',
-          `Successfully loaded ${results.length} of ${totalPairs} pairs`
+          `Successfully loaded ${allPairs.length} of ${totalPairs} pairs`
         );
       }
 
-      return results;
+      return allPairs;
     } catch (error) {
       if (__DEV__) {
         Alert.alert(
@@ -100,6 +107,7 @@ export function useAllLiquidityPools() {
       if (results.length > 0) {
         return results;
       }
+
       return allPairsRef.current;
     } finally {
       setIsPoolsLoading(false);

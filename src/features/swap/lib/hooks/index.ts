@@ -14,3 +14,4 @@ export { useSwapBetterCurrency } from './use-swap-better-currency';
 export { useSwapBetterRate } from './use-swap-better-rate';
 export { useEstimatedGas } from './use-estimated-gas';
 export { useSwapAllBalances } from './use-swap-all-balances';
+export { useTradePriceListener } from './use-trade-price-listener';

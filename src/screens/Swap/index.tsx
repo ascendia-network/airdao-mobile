@@ -17,7 +17,8 @@ import {
 import { useSwapContextSelector } from '@features/swap/context';
 import {
   useAllLiquidityPools,
-  useSwapAllBalances
+  useSwapAllBalances,
+  useTradePriceListener
 } from '@features/swap/lib/hooks';
 import { FIELD } from '@features/swap/types';
 import { useEffectOnce } from '@hooks';
@@ -29,6 +30,7 @@ export const SwapScreen = ({ navigation }: Props) => {
   const { t } = useTranslation();
   useRodeoTokensListQuery();
   useSwapAllBalances();
+  useTradePriceListener();
 
   const { getAllPoolsCount } = useAllLiquidityPools();
   const {

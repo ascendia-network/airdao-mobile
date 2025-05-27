@@ -53,5 +53,18 @@ export const PAIR = [
     payable: false,
     constant: true,
     stateMutability: 'view'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, name: 'sender', type: 'address' },
+      { indexed: false, name: 'amount0In', type: 'uint256' },
+      { indexed: false, name: 'amount1In', type: 'uint256' },
+      { indexed: false, name: 'amount0Out', type: 'uint256' },
+      { indexed: false, name: 'amount1Out', type: 'uint256' },
+      { indexed: true, name: 'to', type: 'address' }
+    ],
+    name: 'Swap',
+    type: 'event'
   }
 ];
