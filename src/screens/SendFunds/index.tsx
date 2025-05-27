@@ -84,12 +84,33 @@ export const SendFunds = ({ navigation, route }: Props) => {
   } = useTokensAndTransactions(senderAddress || '', 1, 20, !!senderAddress);
 
   const [selectedToken, setSelectedToken] = useState<Token>(
-    tokenFromNavigationParams ?? _AMBEntity
+    tokens.length
+      ? tokens.find((token) => token.symbol === CryptoCurrencyCode.AMB) ??
+          tokens[0]
+      : _AMBEntity
   );
 
   useEffect(() => {
+    if (tokenFromNavigationParams) {
+      setSelectedToken(tokenFromNavigationParams);
+      return;
+    }
+
+    if (tokens.length > 0) {
+      const defaultToken =
+        tokens.find((token) => token.symbol === CryptoCurrencyCode.AMB) ??
+        tokens[0];
+      setSelectedToken(defaultToken);
+    }
+  }, [tokens, tokenFromNavigationParams]);
+
+  useEffect(() => {
     if (tokens.length === 0 && tokensFromAPI.length > 0) {
-      onSetTokens([_AMBEntity].concat(tokensFromAPI));
+      if (_AMBEntity.balance.ether > 0) {
+        onSetTokens([_AMBEntity].concat(tokensFromAPI));
+      } else {
+        onSetTokens(tokensFromAPI);
+      }
     }
     if (tokens.length === 0 && tokensFromAPI.length === 0) {
       onSetTokens([_AMBEntity]);
