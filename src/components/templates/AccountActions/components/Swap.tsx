@@ -37,7 +37,7 @@ export const Swap = ({ disabled }: SwapActionProps) => {
         disclaimerModalRef?.current?.show({
           title: t('browser.disclaimer.header'),
           subTitle: t('browser.disclaimer.description'),
-          buttonsLabels: [t('button.processed')],
+          buttonsLabels: [t('button.cancel'), t('button.processed')],
           onApprove: () => navigateToAstra(swapItem.uri)
         });
       }

@@ -1,9 +1,10 @@
 import { useCallback, useRef } from 'react';
 import { ethers } from 'ethers';
+import Config from '@constants/config';
 import { useRodeoTokensListQuery } from '@entities/amb-rodeo-tokens/lib';
 import { useWalletStore } from '@entities/wallet';
 import { useSwapContextSelector } from '@features/swap/context';
-import { transformTokensObject, initialBalances } from '@features/swap/utils';
+import { initialBalances, transformTokensObject } from '@features/swap/utils';
 import { batchFetchTokenBalances } from '../contracts';
 
 export function useSwapAllBalances() {
@@ -26,12 +27,14 @@ export function useSwapAllBalances() {
 
       // Split tokens into priority tokens (common tokens) and other tokens
       // This ensures users see their most important balances first
-      const commonTokenSymbols = ['AMB', 'SAMB', 'USDT', 'USDC', 'ETH', 'WETH'];
+      const commonTokenSymbols = ['AMB', 'SAMB', 'USDT', 'USDC'];
+
       const allTokens = transformTokensObject(tokens);
       const priorityTokens = allTokens.filter((token) =>
         commonTokenSymbols.includes(token.symbol)
       );
-      const otherTokens = allTokens.filter(
+
+      const otherTokens = Config.SWAP_TOKENS.filter(
         (token) => !commonTokenSymbols.includes(token.symbol)
       );
 
