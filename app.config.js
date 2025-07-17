@@ -1,5 +1,6 @@
 module.exports = {
   expo: {
+    newArchEnabled: false,
     name: 'AirDAO',
     slug: 'AirDao',
     version: '1.5.2',
@@ -56,6 +57,8 @@ module.exports = {
       favicon: './assets/favicon.png'
     },
     plugins: [
+      'expo-font',
+      'expo-secure-store',
       [
         'expo-local-authentication',
         {
