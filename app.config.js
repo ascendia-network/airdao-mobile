@@ -90,6 +90,9 @@ module.exports = {
           },
           android: {
             kotlinVersion: '1.6.10',
+            compileSdkVersion: 35,
+            targetSdkVersion: 35,
+            buildToolsVersion: '35.0.0',
             enableProguardInReleaseBuilds: true,
             enableShrinkResourcesInReleaseBuilds: true,
             extraProguardRules:
