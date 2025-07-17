@@ -1,6 +1,5 @@
 module.exports = {
   expo: {
-    newArchEnabled: false,
     name: 'AirDAO',
     slug: 'AirDao',
     version: '1.5.2',
@@ -89,13 +88,15 @@ module.exports = {
         'expo-build-properties',
         {
           ios: {
-            useFrameworks: 'static'
+            useFrameworks: 'static',
+            newArchEnabled: false
           },
           android: {
-            kotlinVersion: '1.6.10',
+            newArchEnabled: false,
+            kotlinVersion: '1.8.10',
             compileSdkVersion: 35,
             targetSdkVersion: 35,
-            buildToolsVersion: '35.0.0',
+            buildToolsVersion: '34.0.0',
             enableProguardInReleaseBuilds: true,
             enableShrinkResourcesInReleaseBuilds: true,
             extraProguardRules:
