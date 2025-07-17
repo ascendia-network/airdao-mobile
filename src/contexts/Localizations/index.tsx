@@ -7,7 +7,6 @@ import {
   useEffect,
   useState
 } from 'react';
-import dayjs from 'dayjs';
 import * as SecureStore from 'expo-secure-store';
 import moment from 'moment';
 import { Language, LanguageCode } from '@appTypes';
@@ -51,7 +50,6 @@ export const LocalizationProvider: FC<{ children: ReactNode }> = ({
 
   useEffect(() => {
     i18n.changeLanguage(currentLanguage);
-    dayjs.locale(currentLanguage);
   }, [currentLanguage]);
 
   return (
