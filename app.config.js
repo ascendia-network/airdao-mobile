@@ -31,7 +31,7 @@ module.exports = {
       buildNumber: '1.4.2'
     },
     android: {
-      versionCode: 185,
+      versionCode: 186,
       softwareKeyboardLayoutMode: 'pan',
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
@@ -90,6 +90,7 @@ module.exports = {
           },
           android: {
             kotlinVersion: '1.6.10',
+            targetSdkVersion: 35,
             enableProguardInReleaseBuilds: true,
             enableShrinkResourcesInReleaseBuilds: true,
             extraProguardRules:
