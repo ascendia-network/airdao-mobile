@@ -120,6 +120,7 @@
     "process": "^0.11.10",
     "protocol-buffers-encodings": "^1.2.0",
     "react": "19.0.0",
+    "react-dom": "^19.1.0",
     "react-i18next": "^13.1.0",
     "react-native": "0.79.5",
     "react-native-calendar-picker": "^7.1.4",
