@@ -15,5 +15,14 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  loader: {
+    flex: 0.9,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  bottomSheetHeader: {
+    shadowColor: 'transparent',
+    zIndex: 1000
   }
 });
