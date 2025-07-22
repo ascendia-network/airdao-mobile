@@ -12,7 +12,12 @@ import {
   useSafeAreaInsets
 } from 'react-native-safe-area-context';
 import { Spacer, Text } from '@components/base';
-import { BottomSheet, BottomSheetRef, Header } from '@components/composite';
+import {
+  BottomSheet,
+  BottomSheetRef,
+  CenteredSpinner,
+  Header
+} from '@components/composite';
 import { BellIcon } from '@components/svg/icons';
 import { NotificationSettingsView } from '@components/templates';
 import { COLORS } from '@constants/colors';
@@ -31,7 +36,7 @@ interface NotificationSection {
 const DAY_FORMAT = 'DD MMMM YYYY';
 
 export const Notifications = (): JSX.Element => {
-  const { data: notifications } = useNotificationsQuery();
+  const { data: notifications, loading } = useNotificationsQuery();
   const { top: topInset } = useSafeAreaInsets();
 
   const settingsModal = useRef<BottomSheetRef>(null);
@@ -121,31 +126,35 @@ export const Notifications = (): JSX.Element => {
       style={styles.container}
     >
       <NotificationsHeader onSettingsPress={showSettingsModal} />
-      <SectionList<Notification, NotificationSection>
-        keyExtractor={(item) => item._id}
-        sections={sectionizedNotificaitons}
-        renderItem={renderNotification}
-        ListEmptyComponent={renderEmpty}
-        ItemSeparatorComponent={() => <Spacer value={verticalScale(8)} />}
-        contentContainerStyle={styles.list}
-        renderSectionHeader={renderSectionHeader}
-        stickySectionHeadersEnabled={false}
-        showsVerticalScrollIndicator={false}
-        testID="Notifications_List"
-      />
-      <BottomSheet ref={settingsModal} height={'100%'} borderRadius={0}>
-        {DeviceUtils.isIOS && <Spacer value={topInset} />}
-        <Header
-          bottomBorder
-          title={t('tab.settings')}
-          style={{
-            shadowColor: 'transparent',
-            zIndex: 1000
-          }}
-          onBackPress={() => settingsModal.current?.dismiss()}
-        />
-        <NotificationSettingsView />
-      </BottomSheet>
+
+      {loading ? (
+        <CenteredSpinner containerStyle={styles.loader} />
+      ) : (
+        <>
+          <SectionList<Notification, NotificationSection>
+            keyExtractor={(item) => item._id}
+            sections={sectionizedNotificaitons}
+            renderItem={renderNotification}
+            ListEmptyComponent={renderEmpty}
+            ItemSeparatorComponent={() => <Spacer value={verticalScale(8)} />}
+            contentContainerStyle={styles.list}
+            renderSectionHeader={renderSectionHeader}
+            stickySectionHeadersEnabled={false}
+            showsVerticalScrollIndicator={false}
+            testID="Notifications_List"
+          />
+          <BottomSheet ref={settingsModal} height={'100%'} borderRadius={0}>
+            {DeviceUtils.isIOS && <Spacer value={topInset} />}
+            <Header
+              bottomBorder
+              title={t('tab.settings')}
+              style={styles.bottomSheetHeader}
+              onBackPress={() => settingsModal.current?.dismiss()}
+            />
+            <NotificationSettingsView />
+          </BottomSheet>
+        </>
+      )}
     </SafeAreaView>
   );
 };
