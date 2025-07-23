@@ -130,31 +130,29 @@ export const Notifications = (): JSX.Element => {
       {loading ? (
         <CenteredSpinner containerStyle={styles.loader} />
       ) : (
-        <>
-          <SectionList<Notification, NotificationSection>
-            keyExtractor={(item) => item._id}
-            sections={sectionizedNotificaitons}
-            renderItem={renderNotification}
-            ListEmptyComponent={renderEmpty}
-            ItemSeparatorComponent={() => <Spacer value={verticalScale(8)} />}
-            contentContainerStyle={styles.list}
-            renderSectionHeader={renderSectionHeader}
-            stickySectionHeadersEnabled={false}
-            showsVerticalScrollIndicator={false}
-            testID="Notifications_List"
-          />
-          <BottomSheet ref={settingsModal} height={'100%'} borderRadius={0}>
-            {DeviceUtils.isIOS && <Spacer value={topInset} />}
-            <Header
-              bottomBorder
-              title={t('tab.settings')}
-              style={styles.bottomSheetHeader}
-              onBackPress={() => settingsModal.current?.dismiss()}
-            />
-            <NotificationSettingsView />
-          </BottomSheet>
-        </>
+        <SectionList<Notification, NotificationSection>
+          keyExtractor={(item) => item._id}
+          sections={sectionizedNotificaitons}
+          renderItem={renderNotification}
+          ListEmptyComponent={renderEmpty}
+          ItemSeparatorComponent={() => <Spacer value={verticalScale(8)} />}
+          contentContainerStyle={styles.list}
+          renderSectionHeader={renderSectionHeader}
+          stickySectionHeadersEnabled={false}
+          showsVerticalScrollIndicator={false}
+          testID="Notifications_List"
+        />
       )}
+      <BottomSheet ref={settingsModal} height="100%" borderRadius={0}>
+        {DeviceUtils.isIOS && <Spacer value={topInset} />}
+        <Header
+          bottomBorder
+          title={t('tab.settings')}
+          style={styles.bottomSheetHeader}
+          onBackPress={() => settingsModal.current?.dismiss()}
+        />
+        <NotificationSettingsView />
+      </BottomSheet>
     </SafeAreaView>
   );
 };
